@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Weather from "./components/Weather";
+import WeatherReport from "./components/WeatherReport";
+import './index.css'; // import the CSS file
 
 function App() {
+  const [location, setLocation] = useState("");
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Weather App</h1>
+      
+      <form>
+        <label htmlFor="location">Enter Location: </label>
+        <input
+          type="text"
+          id="location"
+          value={location}
+          onChange={handleLocationChange}
+        />
+      </form>
+      {location && (
+        <>
+          <Weather location={location} />
+          <WeatherReport location={location} />
+        </>
+      )}
     </div>
   );
 }
